@@ -1,5 +1,6 @@
 # Simple table print
 A simple command to get one entry from a certain line of a file.
+For example get the cpu idle time from the file /proc/stat.
 Is meant to replace awk for such a simple task.
 Entries can be multiple space or tab separated.
 ## Usage
