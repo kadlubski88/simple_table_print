@@ -28,11 +28,11 @@ int main(int argc, char *argv[]) {
     char *buffer_pointer = NULL;
     char *entry_pointer = NULL;
     int separator = 1;
+    int line_to_read = 1; //default line to read
+    int column_to_read = 1; //default column to read
     int actual_line = 1;
-    int line_to_read = 1;
-    int column_to_read = 1;
     int actual_column = 1;
-    FILE *file_stream = NULL;
+    FILE *data_stream = stdin;
 
     //####################
     //# Argument parsing #
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
             break;
         case 'f':
             argv++;
-            if ((file_stream = fopen(*argv, "r")) == NULL) {
+            if ((data_stream = fopen(*argv, "r")) == NULL) {
                 fprintf(stderr, "file \"%s\" doesn\'t exists\n", *argv);
                 exit(EXIT_FAILURE);
             }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     //################
 
     // line loop
-    while ((fgets(buffer, BUFFER_SIZE, file_stream)) != NULL) {
+    while ((fgets(buffer, BUFFER_SIZE, data_stream)) != NULL) {
         // ignore not needed lines
         if (actual_line != line_to_read) {
             actual_line++;
@@ -95,16 +95,19 @@ int main(int argc, char *argv[]) {
             if (is_separator(*buffer_pointer)) {
                 *buffer_pointer = '\0';
                 if (actual_column == 1) {
+                    // ignore whitespace at beginning
                     buffer_pointer++;
                     continue;
                 }
                 if (entry_pointer != NULL) {
+                    // entry is complete
                     break;
                 } 
                 separator = 1;
                 buffer_pointer++;
             } else {
                 if (separator) {
+                    // first entry character after a separator or beginning of a line
                     if (column_to_read == actual_column) {
                         entry_pointer = buffer_pointer;
                     }
@@ -115,13 +118,13 @@ int main(int argc, char *argv[]) {
             }
         }
         if (entry_pointer == NULL) {
-            fclose(file_stream);
+            fclose(data_stream);
             exit(EXIT_FAILURE);
         }
         printf("%s\n", entry_pointer);
         break;
     }
-    fclose(file_stream);
+    fclose(data_stream);
     exit(EXIT_SUCCESS);
 }
 
