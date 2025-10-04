@@ -88,7 +88,6 @@ int main(int argc, char *argv[]) {
         // character loop
         buffer_pointer = buffer;
         while (*buffer_pointer != '\0') {
-            printf("%c\n", *buffer_pointer);
             if (*buffer_pointer == '\n'){
                 *buffer_pointer = '\0';
                 break;
