@@ -1,3 +1,14 @@
+/*
+Simple table print(stp): A simple command to get one entry from a certain line of a file.
+https://github.com/kadlubski88/simple_table_print
+
+The MIT License (MIT)
+Copyright © 2025 Georges Kadlubski
+URL: https://mit-license.org/
+*/
+
+
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -17,6 +28,8 @@ main(int argc, char *argv[]) {
     int column_to_read = 1;
     int actual_column = 1;
     FILE *file_stream = NULL;
+
+    // parse arguments
     if (--argc == 0) {
         fprintf(stderr, "Argument missing\n");
         exit(EXIT_FAILURE);
@@ -60,6 +73,7 @@ main(int argc, char *argv[]) {
         }
     }
 
+    // parsing the text file
     while ((fgets(buffer, BUFFER_SIZE, file_stream)) != NULL) {
         if (line != line_to_read) {
             line++;
