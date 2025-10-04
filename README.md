@@ -1,20 +1,46 @@
 # Simple table print
 A simple command to get one entry from a certain line of a file.
 
-For example get the cpu idle time from the file /proc/stat.
-Is meant to replace awk for such a simple task.
-Entries can be multiple space or tab separated.
+It is intended to replace awk for such a simple task.
+In my opinion, this functionality should be part of the GNU Core Utilities.
+
+Entries(colums) can be multiple space or tab separated.
 ## Usage
+With a specified file:
 ~~~bash
-stp -c <column number> -l <line number> -f <path to file>
+stp -c <[optional]column number> -l <[optional]line number> -f <path to file>
+~~~
+With pipe:
+~~~bash
+cat <file to parse> | stp -c <[optional]column number> -l <[optional]line number>
 ~~~
 Column and line number are starting at 1. Default for column and line are also 1.
-## Todo
-- Usage with pipe
+
+## Example
+Get second CPU core idle time:
 ~~~bash
-cat /proc/uptime | stp -c 2
+$: stp -l 3 -c 5 -f /proc/stat
+1015671
+
+#OR
+
+$: cat /proc/stat | grep "cpu1" | stp -c 5
+1015671
 ~~~
-- Only first line with a certain text(simple pattern) in a certain column
+
+## Installation
+Compile the source file with gcc:
 ~~~bash
-cat /proc/stat | stp -c 4 -p cpu1
+gcc -o stp stp.c
 ~~~
+Make the output file executable
+~~~bash
+chmod +x stp
+~~~
+Copy the executable in one of the folder mentioned in the PATH environement variable(e.g. /usr/bin/).
+~~~bash
+cp ./stp /usr/bin/stp
+~~~
+
+## TODO
+- Add a help option
