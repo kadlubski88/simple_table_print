@@ -1,22 +1,29 @@
-/*
-Simple table print(stp): A simple command to get one entry from a certain line of a file.
-https://github.com/kadlubski88/simple_table_print
-
-The MIT License (MIT)
-Copyright © 2025 Georges Kadlubski
-URL: https://mit-license.org/
-*/
-
-
+//#############################################################################################
+//# Simple table print(stp): A simple command to get one entry from a certain line of a file. #
+//# https://github.com/kadlubski88/simple_table_print                                         #
+//#                                                                                           #
+//# The MIT License (MIT)                                                                     #
+//# Copyright © 2025 Georges Kadlubski                                                        #
+//# URL: https://mit-license.org/                                                             #
+//#############################################################################################
 
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 
+#define VERSION "v0.1"
 #define BUFFER_SIZE 4096
 
+//######################
+//# Function prototype #
+//######################
+
 int is_separator(char c);
+
+//########
+//# Main #
+//########
 
 int main(int argc, char *argv[]) {
 
@@ -42,6 +49,9 @@ int main(int argc, char *argv[]) {
     argv++;
     while (argc > 0 && argv[0][0] == '-' ) {
         switch (argv[0][1]) {
+        case 'v':
+            fprintf(stdout, "%s\n", VERSION);
+            exit(EXIT_SUCCESS);
         case 'c':
             argv++;
             if ((column_to_read = atoi(*argv)) == 0) {
