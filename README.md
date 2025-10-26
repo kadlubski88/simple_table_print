@@ -17,9 +17,16 @@ cat <file to parse> | stp -c <[optional]column number> -l <[optional]line number
 ~~~
 > Note: Column and line number are starting at 1. Default for column and line are also 1.
 
+> Note: If the column number is higher then the entries number, stp exits with error code 1.
+
 Get version:
 ~~~bash
 stp -v
+~~~
+
+Get help:
+~~~bash
+stp -h
 ~~~
 
 ## Example
@@ -49,4 +56,4 @@ cp ./stp /usr/bin/stp
 ~~~
 
 ## TODO
-- Add a help option
+- -

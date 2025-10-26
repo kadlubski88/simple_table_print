@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define VERSION "v0.1"
+#define VERSION "v0.2"
 #define BUFFER_SIZE 4096
 
 //######################
@@ -20,6 +20,7 @@
 //######################
 
 int is_separator(char c);
+void print_help(void);
 
 //########
 //# Main #
@@ -52,6 +53,9 @@ int main(int argc, char *argv[]) {
         case 'v':
             fprintf(stdout, "%s\n", VERSION);
             exit(EXIT_SUCCESS);
+        case 'h':
+            print_help();
+            exit(EXIT_SUCCESS);
         case 'c':
             argv++;
             if ((column_to_read = atoi(*argv)) == 0) {
@@ -77,7 +81,8 @@ int main(int argc, char *argv[]) {
             argc -= 2;
             break;
         default:
-            fprintf(stderr, "\"%s\" is not a valid option\n", *argv);
+            fprintf(stderr, "\"%s\" is not a valid option\n\n", *argv);
+            print_help();
             exit(EXIT_FAILURE);
             break;
         }
@@ -143,4 +148,21 @@ int is_separator(char c) {
     // 9 -> tab
     return((c == 32) || (c == 9));
     // LUT could be also a solution for very long lines
+}
+
+void print_help(void) {
+    printf("Simple Table Print (STP) %s\n\n", VERSION);
+    printf(
+    "Print one entry of a certain line from a file or pipe.\n\n"
+    "Usage:\n"
+    "  stp [options]\n\n"
+    "Options:\n"
+    "  -c <column number>   Which entry to print\n"
+    "  -l <line number>     Which line to parse\n"
+    "  -f <file path>       Path to the file to parse\n"
+    "  -v                   Print the version\n"
+    "  -h                   Print this help\n"
+    "\nExample:\n"
+    "  stp -l 5 -c 2 -f myfile.txt\n"
+    );
 }
