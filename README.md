@@ -1,10 +1,11 @@
 # Simple table print
-A simple command to get one entry from a certain line of a file.
-
-It is intended to replace awk for such a simple task.
-In my opinion, this functionality should be part of the GNU Core Utilities.
+Simple Table Print(STP) is a simple command to get one entry from a certain line of a file.
 
 Entries(colums) can be multiple space or tab separated.
+
+It is intended to replace awk or other complex program for such a simple task.
+In my opinion, this functionality should be part of the GNU Core Utilities.
+
 ## Usage
 With a specified file:
 ~~~bash
@@ -14,7 +15,12 @@ With pipe:
 ~~~bash
 cat <file to parse> | stp -c <[optional]column number> -l <[optional]line number>
 ~~~
-Column and line number are starting at 1. Default for column and line are also 1.
+> Note: Column and line number are starting at 1. Default for column and line are also 1.
+
+Get version:
+~~~bash
+stp -v
+~~~
 
 ## Example
 Get second CPU core idle time:
